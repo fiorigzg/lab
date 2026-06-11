@@ -1,0 +1,19 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Generated/downloaded corpus data (~1 GB, rebuilt by yavan/work/scripts)
+yavan/work/corpus_raw/
+yavan/work/corpus_clean/
+yavan/work/corpus_lemma/
+
+# OS
+.DS_Store
