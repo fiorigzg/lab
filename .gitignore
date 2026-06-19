@@ -10,10 +10,14 @@ __pycache__/
 # Claude Code local settings
 .claude/settings.local.json
 
-# Generated/downloaded corpus data (~1 GB, rebuilt by yavan/work/scripts)
+# yavan: данные (~1.5 ГБ, в гит не кладём). Сырой корпус качают
+# yavan/work/scripts, остальное генерит yavan/work/result_processing.ipynb
 yavan/work/corpus_raw/
 yavan/work/corpus_clean/
 yavan/work/corpus_lemma/
+yavan/work/lexicon/
+yavan/work/embeddings/
+yavan/work/eval/
 
 # OS
 .DS_Store
