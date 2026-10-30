@@ -1,0 +1,2339 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     87422,       2331]
+NotebookOptionsPosition[     86152,       2306]
+NotebookOutlinePosition[     86554,       2322]
+CellTagsIndexPosition[     86511,       2319]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], ";", 
+  RowBox[{"Needs", "[", "\"\<VariationalMethods`\>\"", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"rank", "=", "2"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"h", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Symbol", "[", 
+      RowBox[{"\"\<h\>\"", "<>", 
+       RowBox[{"ToString", "[", "k", "]"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "rank"}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"g", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Symbol", "[", 
+      RowBox[{"\"\<g\>\"", "<>", 
+       RowBox[{"ToString", "[", "k", "]"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "rank"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"p", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Symbol", "[", 
+      RowBox[{"\"\<p\>\"", "<>", 
+       RowBox[{"ToString", "[", "k", "]"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "rank"}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"r", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Symbol", "[", 
+      RowBox[{"\"\<r\>\"", "<>", 
+       RowBox[{"ToString", "[", "k", "]"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "rank"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"dh", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Symbol", "[", 
+      RowBox[{"\"\<dh\>\"", "<>", 
+       RowBox[{"ToString", "[", "k", "]"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "rank"}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"dg", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Symbol", "[", 
+      RowBox[{"\"\<dg\>\"", "<>", 
+       RowBox[{"ToString", "[", "k", "]"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "rank"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"dp", "=", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Symbol", "[", 
+       RowBox[{"\"\<dp\>\"", "<>", 
+        RowBox[{"ToString", "[", "k", "]"}]}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"k", ",", "rank"}], "}"}]}], "]"}]}], ";", 
+   RowBox[{"dr", "=", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Symbol", "[", 
+       RowBox[{"\"\<dr\>\"", "<>", 
+        RowBox[{"ToString", "[", "k", "]"}]}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"k", ",", "rank"}], "}"}]}], "]"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"P", "[", 
+    RowBox[{"x_", ",", "t_"}], "]"}], ":=", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"h", "[", 
+        RowBox[{"[", "k", "]"}], "]"}], "[", "x", "]"}], " ", 
+      RowBox[{
+       RowBox[{"g", "[", 
+        RowBox[{"[", "k", "]"}], "]"}], "[", "t", "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "rank"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"V", "[", 
+     RowBox[{"x_", ",", "s_", ",", "t1_"}], "]"}], ":=", 
+    RowBox[{"Sum", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"p", "[", 
+         RowBox[{"[", "k", "]"}], "]"}], "[", "x", "]"}], " ", 
+       RowBox[{
+        RowBox[{"r", "[", 
+         RowBox[{"[", "k", "]"}], "]"}], "[", 
+        RowBox[{"s", ",", "t1"}], "]"}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"k", ",", "rank"}], "}"}]}], "]"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"R0", "=", 
+   RowBox[{
+    RowBox[{"D", "[", 
+     RowBox[{
+      RowBox[{"P", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], ",", "t"}], "]"}], "-", 
+    RowBox[{"d", " ", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"P", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "2"}], "}"}]}], "]"}]}], "-", 
+    RowBox[{"gam", " ", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"V", "[", 
+        RowBox[{"x", ",", "tau", ",", 
+         RowBox[{"t", "-", "tau"}]}], "]"}], ",", "x"}], "]"}]}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"R1", "=", 
+   RowBox[{
+    RowBox[{"D", "[", 
+     RowBox[{
+      RowBox[{"V", "[", 
+       RowBox[{"x", ",", "s", ",", "t1"}], "]"}], ",", "s"}], "]"}], "-", 
+    RowBox[{"d", " ", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"V", "[", 
+        RowBox[{"x", ",", "s", ",", "t1"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "2"}], "}"}]}], "]"}]}], "-", 
+    RowBox[{"gam", " ", 
+     RowBox[{"w", "[", 
+      RowBox[{"t1", ",", "s"}], "]"}], " ", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"P", "[", 
+        RowBox[{"x", ",", 
+         RowBox[{"t1", "+", "s"}]}], "]"}], ",", "x"}], "]"}]}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"I0", "=", 
+   RowBox[{
+    RowBox[{"P", "[", 
+     RowBox[{"x", ",", "tau"}], "]"}], "-", 
+    RowBox[{"pex", "[", "x", "]"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"I1", "=", 
+    RowBox[{
+     RowBox[{"V", "[", 
+      RowBox[{"x", ",", "0", ",", "t1"}], "]"}], "-", 
+     RowBox[{
+      RowBox[{"phi", "[", "x", "]"}], " ", 
+      RowBox[{"P", "[", 
+       RowBox[{"x", ",", "t1"}], "]"}]}]}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"int", "[", 
+     RowBox[{"e_", ",", "vs_"}], "]"}], ":=", 
+    RowBox[{"Total", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Select", "[", 
+          RowBox[{"#", ",", 
+           RowBox[{
+            RowBox[{"FreeQ", "[", 
+             RowBox[{"#", ",", 
+              RowBox[{"Alternatives", "@@", 
+               RowBox[{"vs", "[", 
+                RowBox[{"[", 
+                 RowBox[{"All", ",", "1"}], "]"}], "]"}]}]}], "]"}], "&"}]}], 
+          "]"}], " ", 
+         RowBox[{
+          RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+          RowBox[{
+           RowBox[{"Select", "[", 
+            RowBox[{"#", ",", 
+             RowBox[{
+              RowBox[{"!", 
+               RowBox[{"FreeQ", "[", 
+                RowBox[{"#", ",", 
+                 RowBox[{"Alternatives", "@@", 
+                  RowBox[{"vs", "[", 
+                   RowBox[{"[", 
+                    RowBox[{"All", ",", "1"}], "]"}], "]"}]}]}], "]"}]}], 
+              "&"}]}], "]"}], ",", 
+           RowBox[{"Sequence", "@@", "vs"}]}], "]"}]}], ")"}], "&"}], "/@", 
+      RowBox[{"(", 
+       RowBox[{"List", "@@", 
+        RowBox[{"Expand", "[", "e", "]"}]}], ")"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"--", 
+      RowBox[{"--", "\:0448\:0430\:0433"}]}], " ", "\:043f\:043e", " ", 
+     RowBox[{"x", ":", 
+      RowBox[{
+      "\:0432\:0430\:0440\:044c\:0438\:0440\:0443\:0435\:043c", " ", 
+       "\:043f\:043e", " ", "h_i", 
+       RowBox[{"(", "x", ")"}]}]}]}], ",", 
+    RowBox[{"p_i", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", "x", ")"}], "--"}], "--"}]}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Q0", "=", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"dh", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], "[", "x", "]"}], " ", 
+      RowBox[{
+       RowBox[{"g", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], "[", "t", "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "rank"}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"Q1", "=", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"dp", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], "[", "x", "]"}], " ", 
+      RowBox[{
+       RowBox[{"r", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], "[", 
+       RowBox[{"s", ",", "t1"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "rank"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Jx", "=", 
+   RowBox[{
+    RowBox[{"int", "[", 
+     RowBox[{
+      RowBox[{"Q0", " ", "R0"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "tau", ",", "T"}], "}"}], "}"}]}], "]"}], "+", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"Q0", "/.", " ", 
+       RowBox[{"t", "->", "tau"}]}], ")"}], " ", "I0"}], "+", 
+    RowBox[{"int", "[", 
+     RowBox[{
+      RowBox[{"Q1", " ", "R1"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"t1", ",", "0", ",", "T"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"s", ",", "0", ",", "tau"}], "}"}]}], "}"}]}], "]"}], "+", 
+    RowBox[{"int", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"Q1", "/.", " ", 
+         RowBox[{"s", "->", "0"}]}], ")"}], " ", "I1"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"{", 
+        RowBox[{"t1", ",", "0", ",", "T"}], "}"}], "}"}]}], "]"}]}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"eqX", "=", 
+   RowBox[{"EulerEquations", "[", 
+    RowBox[{"Jx", ",", 
+     RowBox[{"Join", "[", 
+      RowBox[{
+       RowBox[{"Through", "[", 
+        RowBox[{"dh", "[", "x", "]"}], "]"}], ",", 
+       RowBox[{"Through", "[", 
+        RowBox[{"dp", "[", "x", "]"}], "]"}]}], "]"}], ",", "x"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"eqX", "=", 
+    RowBox[{"Collect", "[", 
+     RowBox[{
+      RowBox[{"Subtract", "@@@", "eqX"}], ",", 
+      RowBox[{"Join", "[", 
+       RowBox[{
+        RowBox[{"Through", "[", 
+         RowBox[{"h", "[", "x", "]"}], "]"}], ",", 
+        RowBox[{"Through", "[", 
+         RowBox[{
+          RowBox[{"h", "''"}], "[", "x", "]"}], "]"}], ",", 
+        RowBox[{"Through", "[", 
+         RowBox[{"p", "[", "x", "]"}], "]"}], ",", 
+        RowBox[{"Through", "[", 
+         RowBox[{
+          RowBox[{"p", "''"}], "[", "x", "]"}], "]"}], ",", 
+        RowBox[{"Through", "[", 
+         RowBox[{
+          RowBox[{"h", "'"}], "[", "x", "]"}], "]"}], ",", 
+        RowBox[{"Through", "[", 
+         RowBox[{
+          RowBox[{"p", "'"}], "[", "x", "]"}], "]"}]}], "]"}]}], "]"}]}], 
+   ";"}], "\[IndentingNewLine]", "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"--", 
+      RowBox[{"--", "\:0448\:0430\:0433"}]}], " ", "\:043f\:043e", " ", 
+     RowBox[{"\:0432\:0440\:0435\:043c\:0435\:043d\:0438", ":", 
+      RowBox[{
+      "\:0432\:0430\:0440\:044c\:0438\:0440\:0443\:0435\:043c", " ", 
+       "\:043f\:043e", " ", "g_i", 
+       RowBox[{"(", "t", ")"}]}]}]}], ",", 
+    RowBox[{"r_i", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"s", ",", "t1"}], ")"}], "--"}], "--"}]}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Q0", "=", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"h", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], "[", "x", "]"}], " ", 
+      RowBox[{
+       RowBox[{"dg", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], "[", "t", "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "rank"}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"Q1", "=", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"p", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], "[", "x", "]"}], " ", 
+      RowBox[{
+       RowBox[{"dr", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], "[", 
+       RowBox[{"s", ",", "t1"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "rank"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"eqG", "=", 
+   RowBox[{"EulerEquations", "[", 
+    RowBox[{
+     RowBox[{"int", "[", 
+      RowBox[{
+       RowBox[{"Q0", " ", "R0"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", 
+          RowBox[{"-", "L"}], ",", "L"}], "}"}], "}"}]}], "]"}], ",", 
+     RowBox[{"Through", "[", 
+      RowBox[{"dg", "[", "t", "]"}], "]"}], ",", "t"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"icG", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"int", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"Q0", "/.", " ", 
+             RowBox[{"t", "->", "tau"}]}], ")"}], " ", "I0"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", 
+             RowBox[{"-", "L"}], ",", "L"}], "}"}], "}"}]}], "]"}], ",", 
+        RowBox[{
+         RowBox[{"dg", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "[", "tau", "]"}]}], "]"}], "==", 
+      "0"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "rank"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"eqR", "=", 
+   RowBox[{"EulerEquations", "[", 
+    RowBox[{
+     RowBox[{"int", "[", 
+      RowBox[{
+       RowBox[{"Q1", " ", "R1"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", 
+          RowBox[{"-", "L"}], ",", "L"}], "}"}], "}"}]}], "]"}], ",", 
+     RowBox[{"Through", "[", 
+      RowBox[{"dr", "[", 
+       RowBox[{"s", ",", "t1"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"s", ",", "t1"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"icR", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"int", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"Q1", "/.", " ", 
+             RowBox[{"s", "->", "0"}]}], ")"}], " ", "I1"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", 
+             RowBox[{"-", "L"}], ",", "L"}], "}"}], "}"}]}], "]"}], ",", 
+        RowBox[{
+         RowBox[{"dr", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "[", 
+         RowBox[{"0", ",", "t1"}], "]"}]}], "]"}], "==", "0"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "rank"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"eqW", "=", 
+    RowBox[{
+     RowBox[{"w", "[", 
+      RowBox[{"t1", ",", "s"}], "]"}], "==", 
+     RowBox[{"Sum", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"phi", "[", "x", "]"}], " ", 
+           RowBox[{
+            RowBox[{"p", "[", 
+             RowBox[{"[", "k", "]"}], "]"}], "[", "x", "]"}]}], ",", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", 
+            RowBox[{"-", "L"}], ",", "L"}], "}"}]}], "]"}], " ", 
+        RowBox[{
+         RowBox[{"r", "[", 
+          RowBox[{"[", "k", "]"}], "]"}], "[", 
+         RowBox[{
+          RowBox[{"tau", "-", "s"}], ",", 
+          RowBox[{"t1", "-", "tau", "+", "s"}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"k", ",", "rank"}], "}"}]}], "]"}]}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "Print", "[", "\"\<\:041e\:0414\:0423 \:043f\:043e x (\:0448\:0430\:0433 \
+\:043f\:043e x), \:043b\:0435\:0432\:044b\:0435 \
+\:0447\:0430\:0441\:0442\:0438 = 0:\>\"", "]"}], ";", 
+  RowBox[{"Column", "[", 
+   RowBox[{"Thread", "[", 
+    RowBox[{"eqX", "==", "0"}], "]"}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+  "Print", "[", "\"\<\:041e\:0414\:0423 \:043f\:043e t \:0434\:043b\:044f g_k \
+\:0438 \:043d\:0430\:0447\:0430\:043b\:044c\:043d\:044b\:0435 \:0443\:0441\
+\:043b\:043e\:0432\:0438\:044f \:043f\:0440\:0438 t = tau:\>\"", "]"}], ";", 
+  RowBox[{"Column", "[", 
+   RowBox[{"Join", "[", 
+    RowBox[{"eqG", ",", "icG"}], "]"}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+  "Print", "[", "\"\<\:041e\:0414\:0423 \:043f\:043e s \:0434\:043b\:044f \
+r_k(s,t1) \:0438 \:043d\:0430\:0447\:0430\:043b\:044c\:043d\:044b\:0435 \
+\:0443\:0441\:043b\:043e\:0432\:0438\:044f \:043f\:0440\:0438 s = 0:\>\"", 
+   "]"}], ";", 
+  RowBox[{"Column", "[", 
+   RowBox[{"Join", "[", 
+    RowBox[{"eqR", ",", "icR"}], "]"}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+  "Print", "[", "\"\<\:043c\:043e\:043c\:0435\:043d\:0442 w:\>\"", "]"}], ";",
+   "eqW"}]}], "Input",
+ CellChangeTimes->{{4.002275394414853*^9, 4.002275394414918*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"127f4308-84c9-4d0c-a42c-6c4972e8ea2a"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Join", "heads", 
+   "\"Heads \\!\\(\\*RowBox[{\\\"List\\\"}]\\) and \
+\\!\\(\\*RowBox[{\\\"Derivative\\\", \\\"[\\\", \\\"2\\\", \\\"]\\\"}]\\) at \
+positions \\!\\(\\*RowBox[{\\\"1\\\"}]\\) and \\!\\(\\*RowBox[{\\\"2\\\"}]\\) \
+are expected to be the same.\"", 2, 17, 1, 28565267982709000872, "Local"},
+  "MessageTemplate",
+  BaseStyle->"MSG"]], "Message",
+ CellChangeTimes->{4.0022753979082603`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"fe0b5248-f9a1-493c-bc41-9b1c6a682fed"],
+
+Cell[BoxData["\<\"\:041e\:0414\:0423 \:043f\:043e x (\:0448\:0430\:0433 \
+\:043f\:043e x), \:043b\:0435\:0432\:044b\:0435 \
+\:0447\:0430\:0441\:0442\:0438 = 0:\"\>"], "Print",
+ CellChangeTimes->{4.002275397986762*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"c7f02c7d-8b4d-4afd-b770-1e3429432ef2"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g1", "[", "tau", "]"}], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"g1", "[", "tau", "]"}], " ", 
+           RowBox[{"h1", "[", "x", "]"}]}], "+", 
+          RowBox[{
+           RowBox[{"g2", "[", "tau", "]"}], " ", 
+           RowBox[{"h2", "[", "x", "]"}]}], "-", 
+          RowBox[{"pex", "[", "x", "]"}]}], ")"}]}], "+", 
+       RowBox[{
+        RowBox[{"h1", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g1", "[", "t", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["g1", "\[Prime]", MultilineFunction -> None], 
+              "[", "t", "]"}]}], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"h2", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g1", "[", "t", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["g2", "\[Prime]", MultilineFunction -> None], 
+              "[", "t", "]"}]}], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"gam", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g1", "[", "t", "]"}], " ", 
+            RowBox[{"r1", "[", 
+              RowBox[{"tau", ",", 
+                RowBox[{"t", "-", "tau"}]}], "]"}]}], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["p1", "\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"gam", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g1", "[", "t", "]"}], " ", 
+            RowBox[{"r2", "[", 
+              RowBox[{"tau", ",", 
+                RowBox[{"t", "-", "tau"}]}], "]"}]}], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["p2", "\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"d", " ", 
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"g1", "[", "t", "]"}], "2"], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["h1", "\[Prime]\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"d", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g1", "[", "t", "]"}], " ", 
+            RowBox[{"g2", "[", "t", "]"}]}], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["h2", "\[Prime]\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}]}], "\[Equal]", "0"}]},
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g2", "[", "tau", "]"}], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"g1", "[", "tau", "]"}], " ", 
+           RowBox[{"h1", "[", "x", "]"}]}], "+", 
+          RowBox[{
+           RowBox[{"g2", "[", "tau", "]"}], " ", 
+           RowBox[{"h2", "[", "x", "]"}]}], "-", 
+          RowBox[{"pex", "[", "x", "]"}]}], ")"}]}], "+", 
+       RowBox[{
+        RowBox[{"h1", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g2", "[", "t", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["g1", "\[Prime]", MultilineFunction -> None], 
+              "[", "t", "]"}]}], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"h2", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g2", "[", "t", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["g2", "\[Prime]", MultilineFunction -> None], 
+              "[", "t", "]"}]}], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"gam", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g2", "[", "t", "]"}], " ", 
+            RowBox[{"r1", "[", 
+              RowBox[{"tau", ",", 
+                RowBox[{"t", "-", "tau"}]}], "]"}]}], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["p1", "\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"gam", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g2", "[", "t", "]"}], " ", 
+            RowBox[{"r2", "[", 
+              RowBox[{"tau", ",", 
+                RowBox[{"t", "-", "tau"}]}], "]"}]}], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["p2", "\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"d", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g1", "[", "t", "]"}], " ", 
+            RowBox[{"g2", "[", "t", "]"}]}], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["h1", "\[Prime]\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"d", " ", 
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"g2", "[", "t", "]"}], "2"], "t", "tau", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["h2", "\[Prime]\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}]}], "\[Equal]", "0"}]},
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         RowBox[{"h1", "[", "x", "]"}]}], " ", 
+        RowBox[{"phi", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g1", "[", "t1", "]"}], " ", 
+            RowBox[{"r1", "[", 
+              RowBox[{"0", ",", "t1"}], "]"}]}], "t1", "0", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{
+        RowBox[{"h2", "[", "x", "]"}], " ", 
+        RowBox[{"phi", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g2", "[", "t1", "]"}], " ", 
+            RowBox[{"r1", "[", 
+              RowBox[{"0", ",", "t1"}], "]"}]}], "t1", "0", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"p1", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"r1", "[", 
+             RowBox[{"0", ",", "t1"}], "]"}], "2"], "t1", "0", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"p2", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"r1", "[", 
+              RowBox[{"0", ",", "t1"}], "]"}], " ", 
+            RowBox[{"r2", "[", 
+              RowBox[{"0", ",", "t1"}], "]"}]}], "t1", "0", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"p1", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"r1", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["r1", 
+               TagBox[
+                RowBox[{"(", 
+                  RowBox[{"1", ",", "0"}], ")"}], Derivative], 
+               MultilineFunction -> None], "[", 
+              RowBox[{"s", ",", "t1"}], "]"}]}], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"p2", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"r1", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["r2", 
+               TagBox[
+                RowBox[{"(", 
+                  RowBox[{"1", ",", "0"}], ")"}], Derivative], 
+               MultilineFunction -> None], "[", 
+              RowBox[{"s", ",", "t1"}], "]"}]}], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"gam", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g1", "[", 
+              RowBox[{"s", "+", "t1"}], "]"}], " ", 
+            RowBox[{"r1", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}], " ", 
+            RowBox[{"w", "[", 
+              RowBox[{"t1", ",", "s"}], "]"}]}], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["h1", "\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"gam", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g2", "[", 
+              RowBox[{"s", "+", "t1"}], "]"}], " ", 
+            RowBox[{"r1", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}], " ", 
+            RowBox[{"w", "[", 
+              RowBox[{"t1", ",", "s"}], "]"}]}], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["h2", "\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"d", " ", 
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"r1", "[", 
+             RowBox[{"s", ",", "t1"}], "]"}], "2"], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["p1", "\[Prime]\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"d", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"r1", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}], " ", 
+            RowBox[{"r2", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}]}], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["p2", "\[Prime]\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}]}], "\[Equal]", "0"}]},
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         RowBox[{"h1", "[", "x", "]"}]}], " ", 
+        RowBox[{"phi", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g1", "[", "t1", "]"}], " ", 
+            RowBox[{"r2", "[", 
+              RowBox[{"0", ",", "t1"}], "]"}]}], "t1", "0", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{
+        RowBox[{"h2", "[", "x", "]"}], " ", 
+        RowBox[{"phi", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g2", "[", "t1", "]"}], " ", 
+            RowBox[{"r2", "[", 
+              RowBox[{"0", ",", "t1"}], "]"}]}], "t1", "0", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"p1", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"r1", "[", 
+              RowBox[{"0", ",", "t1"}], "]"}], " ", 
+            RowBox[{"r2", "[", 
+              RowBox[{"0", ",", "t1"}], "]"}]}], "t1", "0", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"p2", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"r2", "[", 
+             RowBox[{"0", ",", "t1"}], "]"}], "2"], "t1", "0", "T"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"p1", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"r2", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["r1", 
+               TagBox[
+                RowBox[{"(", 
+                  RowBox[{"1", ",", "0"}], ")"}], Derivative], 
+               MultilineFunction -> None], "[", 
+              RowBox[{"s", ",", "t1"}], "]"}]}], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"p2", "[", "x", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"r2", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["r2", 
+               TagBox[
+                RowBox[{"(", 
+                  RowBox[{"1", ",", "0"}], ")"}], Derivative], 
+               MultilineFunction -> None], "[", 
+              RowBox[{"s", ",", "t1"}], "]"}]}], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"gam", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g1", "[", 
+              RowBox[{"s", "+", "t1"}], "]"}], " ", 
+            RowBox[{"r2", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}], " ", 
+            RowBox[{"w", "[", 
+              RowBox[{"t1", ",", "s"}], "]"}]}], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["h1", "\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"gam", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"g2", "[", 
+              RowBox[{"s", "+", "t1"}], "]"}], " ", 
+            RowBox[{"r2", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}], " ", 
+            RowBox[{"w", "[", 
+              RowBox[{"t1", ",", "s"}], "]"}]}], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["h2", "\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"d", " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"r1", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}], " ", 
+            RowBox[{"r2", "[", 
+              RowBox[{"s", ",", "t1"}], "]"}]}], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["p1", "\[Prime]\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}], "-", 
+       RowBox[{"d", " ", 
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"r2", "[", 
+             RowBox[{"s", ",", "t1"}], "]"}], "2"], "t1", "0", "T", "s", "0", 
+          "tau"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{
+              SubsuperscriptBox[
+               StyleBox["\[Integral]", "Inactive"], #6, #7], 
+              RowBox[{#, 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #5}], 
+                RowBox[{
+                  StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}], ",", 
+              RowBox[{"{", 
+                RowBox[{#5, ",", #6, ",", #7}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["p2", "\[Prime]\[Prime]",
+          MultilineFunction->None], "[", "x", "]"}]}]}], "\[Equal]", "0"}]}
+   },
+   DefaultBaseStyle->"Column",
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Column"]], "Output",
+ CellChangeTimes->{4.002275397997641*^9},
+ CellLabel->"Out[24]=",ExpressionUUID->"98d7a2ad-257c-42f2-ba71-118fab2906bd"],
+
+Cell[BoxData["\<\"\:041e\:0414\:0423 \:043f\:043e t \:0434\:043b\:044f g_k \
+\:0438 \:043d\:0430\:0447\:0430\:043b\:044c\:043d\:044b\:0435 \:0443\:0441\
+\:043b\:043e\:0432\:0438\:044f \:043f\:0440\:0438 t = tau:\"\>"], "Print",
+ CellChangeTimes->{4.002275398014339*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"02a79e4a-e65a-47d1-bdab-fa6acc5bd15b"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "gam"}], " ", 
+        RowBox[{"r1", "[", 
+         RowBox[{"tau", ",", 
+          RowBox[{"t", "-", "tau"}]}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h1", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["p1", "\[Prime]", MultilineFunction -> None], 
+              "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"gam", " ", 
+        RowBox[{"r2", "[", 
+         RowBox[{"tau", ",", 
+          RowBox[{"t", "-", "tau"}]}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h1", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["p2", "\[Prime]", MultilineFunction -> None], 
+              "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"d", " ", 
+        RowBox[{"g1", "[", "t", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h1", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox[
+              "h1", "\[Prime]\[Prime]", MultilineFunction -> None], "[", "x", 
+              "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"d", " ", 
+        RowBox[{"g2", "[", "t", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h1", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox[
+              "h2", "\[Prime]\[Prime]", MultilineFunction -> None], "[", "x", 
+              "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"h1", "[", "x", "]"}], "2"], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["g1", "\[Prime]",
+          MultilineFunction->None], "[", "t", "]"}]}], "+", 
+       RowBox[{
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h1", "[", "x", "]"}], " ", 
+            RowBox[{"h2", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["g2", "\[Prime]",
+          MultilineFunction->None], "[", "t", "]"}]}]}], "\[Equal]", "0"}]},
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "gam"}], " ", 
+        RowBox[{"r1", "[", 
+         RowBox[{"tau", ",", 
+          RowBox[{"t", "-", "tau"}]}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h2", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["p1", "\[Prime]", MultilineFunction -> None], 
+              "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"gam", " ", 
+        RowBox[{"r2", "[", 
+         RowBox[{"tau", ",", 
+          RowBox[{"t", "-", "tau"}]}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h2", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["p2", "\[Prime]", MultilineFunction -> None], 
+              "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"d", " ", 
+        RowBox[{"g1", "[", "t", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h2", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox[
+              "h1", "\[Prime]\[Prime]", MultilineFunction -> None], "[", "x", 
+              "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"d", " ", 
+        RowBox[{"g2", "[", "t", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h2", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox[
+              "h2", "\[Prime]\[Prime]", MultilineFunction -> None], "[", "x", 
+              "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h1", "[", "x", "]"}], " ", 
+            RowBox[{"h2", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["g1", "\[Prime]",
+          MultilineFunction->None], "[", "t", "]"}]}], "+", 
+       RowBox[{
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"h2", "[", "x", "]"}], "2"], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["g2", "\[Prime]",
+          MultilineFunction->None], "[", "t", "]"}]}]}], "\[Equal]", "0"}]},
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g1", "[", "tau", "]"}], " ", 
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"h1", "[", "x", "]"}], "2"], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"g2", "[", "tau", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h1", "[", "x", "]"}], " ", 
+            RowBox[{"h2", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       TemplateBox[{
+         RowBox[{
+           RowBox[{"h1", "[", "x", "]"}], " ", 
+           RowBox[{"pex", "[", "x", "]"}]}], "x", 
+         RowBox[{"-", "L"}], "L"},
+        "InactiveIntegrate",
+        DisplayFunction->(RowBox[{
+           SubsuperscriptBox[
+            StyleBox["\[Integral]", "Inactive"], #3, #4], 
+           RowBox[{#, 
+             RowBox[{
+               StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+        InterpretationFunction->(RowBox[{
+           RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+           RowBox[{#, ",", 
+             RowBox[{"{", 
+               RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "\[Equal]",
+       "0"}]},
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g1", "[", "tau", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h1", "[", "x", "]"}], " ", 
+            RowBox[{"h2", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"g2", "[", "tau", "]"}], " ", 
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"h2", "[", "x", "]"}], "2"], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       TemplateBox[{
+         RowBox[{
+           RowBox[{"h2", "[", "x", "]"}], " ", 
+           RowBox[{"pex", "[", "x", "]"}]}], "x", 
+         RowBox[{"-", "L"}], "L"},
+        "InactiveIntegrate",
+        DisplayFunction->(RowBox[{
+           SubsuperscriptBox[
+            StyleBox["\[Integral]", "Inactive"], #3, #4], 
+           RowBox[{#, 
+             RowBox[{
+               StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+        InterpretationFunction->(RowBox[{
+           RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+           RowBox[{#, ",", 
+             RowBox[{"{", 
+               RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "\[Equal]",
+       "0"}]}
+   },
+   DefaultBaseStyle->"Column",
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Column"]], "Output",
+ CellChangeTimes->{4.002275398017524*^9},
+ CellLabel->"Out[25]=",ExpressionUUID->"668f7b03-e36b-4993-a3b6-2e02b6a9ffa9"],
+
+Cell[BoxData["\<\"\:041e\:0414\:0423 \:043f\:043e s \:0434\:043b\:044f \
+r_k(s,t1) \:0438 \:043d\:0430\:0447\:0430\:043b\:044c\:043d\:044b\:0435 \
+\:0443\:0441\:043b\:043e\:0432\:0438\:044f \:043f\:0440\:0438 s = 0:\"\>"], \
+"Print",
+ CellChangeTimes->{4.002275398021967*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"c8d8b0ed-c312-4056-8472-cb6f482ee2d1"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "gam"}], " ", 
+        RowBox[{"g1", "[", 
+         RowBox[{"s", "+", "t1"}], "]"}], " ", 
+        RowBox[{"w", "[", 
+         RowBox[{"t1", ",", "s"}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p1", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["h1", "\[Prime]", MultilineFunction -> None], 
+              "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"gam", " ", 
+        RowBox[{"g2", "[", 
+         RowBox[{"s", "+", "t1"}], "]"}], " ", 
+        RowBox[{"w", "[", 
+         RowBox[{"t1", ",", "s"}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p1", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["h2", "\[Prime]", MultilineFunction -> None], 
+              "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"d", " ", 
+        RowBox[{"r1", "[", 
+         RowBox[{"s", ",", "t1"}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p1", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox[
+              "p1", "\[Prime]\[Prime]", MultilineFunction -> None], "[", "x", 
+              "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"d", " ", 
+        RowBox[{"r2", "[", 
+         RowBox[{"s", ",", "t1"}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p1", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox[
+              "p2", "\[Prime]\[Prime]", MultilineFunction -> None], "[", "x", 
+              "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"p1", "[", "x", "]"}], "2"], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["r1", 
+          TagBox[
+           RowBox[{"(", 
+            RowBox[{"1", ",", "0"}], ")"}],
+           Derivative],
+          MultilineFunction->None], "[", 
+         RowBox[{"s", ",", "t1"}], "]"}]}], "+", 
+       RowBox[{
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p1", "[", "x", "]"}], " ", 
+            RowBox[{"p2", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["r2", 
+          TagBox[
+           RowBox[{"(", 
+            RowBox[{"1", ",", "0"}], ")"}],
+           Derivative],
+          MultilineFunction->None], "[", 
+         RowBox[{"s", ",", "t1"}], "]"}]}]}], "\[Equal]", "0"}]},
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "gam"}], " ", 
+        RowBox[{"g1", "[", 
+         RowBox[{"s", "+", "t1"}], "]"}], " ", 
+        RowBox[{"w", "[", 
+         RowBox[{"t1", ",", "s"}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p2", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["h1", "\[Prime]", MultilineFunction -> None], 
+              "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"gam", " ", 
+        RowBox[{"g2", "[", 
+         RowBox[{"s", "+", "t1"}], "]"}], " ", 
+        RowBox[{"w", "[", 
+         RowBox[{"t1", ",", "s"}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p2", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["h2", "\[Prime]", MultilineFunction -> None], 
+              "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"d", " ", 
+        RowBox[{"r1", "[", 
+         RowBox[{"s", ",", "t1"}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p2", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox[
+              "p1", "\[Prime]\[Prime]", MultilineFunction -> None], "[", "x", 
+              "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{"d", " ", 
+        RowBox[{"r2", "[", 
+         RowBox[{"s", ",", "t1"}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p2", "[", "x", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox[
+              "p2", "\[Prime]\[Prime]", MultilineFunction -> None], "[", "x", 
+              "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p1", "[", "x", "]"}], " ", 
+            RowBox[{"p2", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["r1", 
+          TagBox[
+           RowBox[{"(", 
+            RowBox[{"1", ",", "0"}], ")"}],
+           Derivative],
+          MultilineFunction->None], "[", 
+         RowBox[{"s", ",", "t1"}], "]"}]}], "+", 
+       RowBox[{
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"p2", "[", "x", "]"}], "2"], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )], " ", 
+        RowBox[{
+         SuperscriptBox["r2", 
+          TagBox[
+           RowBox[{"(", 
+            RowBox[{"1", ",", "0"}], ")"}],
+           Derivative],
+          MultilineFunction->None], "[", 
+         RowBox[{"s", ",", "t1"}], "]"}]}]}], "\[Equal]", "0"}]},
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"r1", "[", 
+         RowBox[{"0", ",", "t1"}], "]"}], " ", 
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"p1", "[", "x", "]"}], "2"], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"r2", "[", 
+         RowBox[{"0", ",", "t1"}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p1", "[", "x", "]"}], " ", 
+            RowBox[{"p2", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{
+        RowBox[{"g1", "[", "t1", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h1", "[", "x", "]"}], " ", 
+            RowBox[{"p1", "[", "x", "]"}], " ", 
+            RowBox[{"phi", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{
+        RowBox[{"g2", "[", "t1", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h2", "[", "x", "]"}], " ", 
+            RowBox[{"p1", "[", "x", "]"}], " ", 
+            RowBox[{"phi", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}]}], "\[Equal]",
+       "0"}]},
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"r1", "[", 
+         RowBox[{"0", ",", "t1"}], "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"p1", "[", "x", "]"}], " ", 
+            RowBox[{"p2", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+       RowBox[{
+        RowBox[{"r2", "[", 
+         RowBox[{"0", ",", "t1"}], "]"}], " ", 
+        TemplateBox[{
+          SuperscriptBox[
+           RowBox[{"p2", "[", "x", "]"}], "2"], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{
+        RowBox[{"g1", "[", "t1", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h1", "[", "x", "]"}], " ", 
+            RowBox[{"p2", "[", "x", "]"}], " ", 
+            RowBox[{"phi", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "-", 
+       RowBox[{
+        RowBox[{"g2", "[", "t1", "]"}], " ", 
+        TemplateBox[{
+          RowBox[{
+            RowBox[{"h2", "[", "x", "]"}], " ", 
+            RowBox[{"p2", "[", "x", "]"}], " ", 
+            RowBox[{"phi", "[", "x", "]"}]}], "x", 
+          RowBox[{"-", "L"}], "L"},
+         "InactiveIntegrate",
+         DisplayFunction->(RowBox[{
+            SubsuperscriptBox[
+             StyleBox["\[Integral]", "Inactive"], #3, #4], 
+            RowBox[{#, 
+              RowBox[{
+                StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+         InterpretationFunction->(RowBox[{
+            RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+            RowBox[{#, ",", 
+              RowBox[{"{", 
+                RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}]}], "\[Equal]",
+       "0"}]}
+   },
+   DefaultBaseStyle->"Column",
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Column"]], "Output",
+ CellChangeTimes->{4.002275398024729*^9},
+ CellLabel->"Out[26]=",ExpressionUUID->"68a390a3-a677-470a-b63a-36817ea5430d"],
+
+Cell[BoxData["\<\"\:043c\:043e\:043c\:0435\:043d\:0442 w:\"\>"], "Print",
+ CellChangeTimes->{4.00227539802908*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"c80100c2-cb44-410a-944e-9fe96d91f0aa"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"w", "[", 
+   RowBox[{"t1", ",", "s"}], "]"}], "\[Equal]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"r1", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "s"}], "+", "tau"}], ",", 
+      RowBox[{"s", "+", "t1", "-", "tau"}]}], "]"}], " ", 
+    TemplateBox[{
+      RowBox[{
+        RowBox[{"p1", "[", "x", "]"}], " ", 
+        RowBox[{"phi", "[", "x", "]"}]}], "x", 
+      RowBox[{"-", "L"}], "L"},
+     "InactiveIntegrate",
+     DisplayFunction->(RowBox[{
+        SubsuperscriptBox[
+         StyleBox["\[Integral]", "Inactive"], #3, #4], 
+        RowBox[{#, 
+          RowBox[{
+            StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+     InterpretationFunction->(RowBox[{
+        RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+        RowBox[{#, ",", 
+          RowBox[{"{", 
+            RowBox[{#2, ",", #3, ",", #4}], "}"}]}], "]"}]& )]}], "+", 
+   RowBox[{
+    RowBox[{"r2", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "s"}], "+", "tau"}], ",", 
+      RowBox[{"s", "+", "t1", "-", "tau"}]}], "]"}], " ", 
+    TemplateBox[{
+      RowBox[{
+        RowBox[{"p2", "[", "x", "]"}], " ", 
+        RowBox[{"phi", "[", "x", "]"}]}], "x", 
+      RowBox[{"-", "L"}], "L"},
+     "InactiveIntegrate",
+     DisplayFunction->(RowBox[{
+        SubsuperscriptBox[
+         StyleBox["\[Integral]", "Inactive"], #3, #4], 
+        RowBox[{#, 
+          RowBox[{
+            StyleBox["\[DifferentialD]", "Inactive"], #2}]}]}]& ),
+     InterpretationFunction->(RowBox[{
+        RowBox[{"Inactive", "[", "Integrate", "]"}], "[", 
+        RowBox[{#, ",", 
+          RowBox[{"{", 
+            RowBox[{#2, ",", #3, ",", #4}], "}"}]}], 
+        "]"}]& )]}]}]}]], "Output",
+ CellChangeTimes->{4.002275398030384*^9},
+ CellLabel->"Out[27]=",ExpressionUUID->"5d78c282-0f92-40a5-be21-4a2eeb15fe1b"]
+}, Open  ]]
+},
+WindowSize->{1097.25, 671.25},
+WindowMargins->{{-2.25, Automatic}, {Automatic, -22.5}},
+FrontEndVersion->"15.0 for Linux x86 (64-bit) (July 2, 2026)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"e51e96d5-88b2-41bf-87f2-42449d6f52d5"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 15680, 487, 812, "Input",ExpressionUUID->"127f4308-84c9-4d0c-a42c-6c4972e8ea2a"],
+Cell[16259, 511, 537, 12, 26, "Message",ExpressionUUID->"fe0b5248-f9a1-493c-bc41-9b1c6a682fed"],
+Cell[16799, 525, 321, 6, 23, "Print",ExpressionUUID->"c7f02c7d-8b4d-4afd-b770-1e3429432ef2"],
+Cell[17123, 533, 32914, 822, 299, "Output",ExpressionUUID->"98d7a2ad-257c-42f2-ba71-118fab2906bd"],
+Cell[50040, 1357, 373, 6, 23, "Print",ExpressionUUID->"02a79e4a-e65a-47d1-bdab-fa6acc5bd15b"],
+Cell[50416, 1365, 15242, 394, 150, "Output",ExpressionUUID->"668f7b03-e36b-4993-a3b6-2e02b6a9ffa9"],
+Cell[65661, 1761, 379, 7, 23, "Print",ExpressionUUID->"c8d8b0ed-c312-4056-8472-cb6f482ee2d1"],
+Cell[66043, 1770, 18036, 472, 150, "Output",ExpressionUUID->"68a390a3-a677-470a-b63a-36817ea5430d"],
+Cell[84082, 2244, 218, 4, 23, "Print",ExpressionUUID->"c80100c2-cb44-410a-944e-9fe96d91f0aa"],
+Cell[84303, 2250, 1833, 53, 46, "Output",ExpressionUUID->"5d78c282-0f92-40a5-be21-4a2eeb15fe1b"]
+}, Open  ]]
+}
+]
+*)
+
